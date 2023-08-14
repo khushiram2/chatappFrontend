@@ -1,38 +1,75 @@
-.App {
-  text-align: center;
-}
+.App{
+  height: 100vh;
+  width: 100%;
+  display: flex;
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+button{
+  cursor: pointer;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.form{
+  display: flex;
+  flex-direction: column; 
+  padding: 30px;
+  width: 500px;
+  height: fit-content;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+.form-data{
   display: flex;
   flex-direction: column;
-  align-items: center;
+}
+.forgotpassword-container{
+  width: 100%;
+  height: 100vh;
+ display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  
 }
+.forgot-password-form{
+  width: 500px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 
-.App-link {
-  color: #61dafb;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.sorR{
+  display: flex;
+  margin-top: 30px;
+  margin-left: 150px;
+}
+.form-data :nth-child(3){
+  display: flex;
+  justify-content: space-between;
+}
+.form-data :nth-child(3) >a{
+  font-size: 17px;
+  
+}
+.form-container{
+  width: 100%;
+  height: calc(100vh - 74px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form-lable{
+font-size: 24px;
+}
+.form-input{
+border: 1px black solid;
+height: 30px;
+font-size: 20px;
+margin: 5px;
+}
+.btn{
+  margin-top: 30px;
+  width: 200px;
+  height: 40px;
+  border-radius: 20px;
+  color: aliceblue;
+  background-color: rgb(19, 3, 95);
+  margin-left: 150px;
 }
