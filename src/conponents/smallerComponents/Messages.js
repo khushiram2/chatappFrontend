@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { ChatContext } from "../../context";
 import { Box } from "@mui/material";
 import { getSecondUserInChat, getSecondUserInChat2 } from "./function";
@@ -18,7 +18,9 @@ export const Messages = ({ socket,messages,setMessages }) => {
   const setMySelectedChatStateFromSearch =
   appChatContext.setMySelectedChatStateFromSearch;
 
-
+  const updateMessage=useCallback((newmessage)=>{
+setMessages(newmessage)
+  },[setMessages])
 
   
   
@@ -30,7 +32,7 @@ export const Messages = ({ socket,messages,setMessages }) => {
           `${Api}/message/all/${mySelectedChatstateFromSearch._id}`
           );
           if (res.status === 200) {
-            setMessages(res.data);
+            updateMessage(res.data);
             socket.emit("join-chat", mySelectedChatstateFromSearch._id)
           } else {
             console.log(" i can't do it ");
