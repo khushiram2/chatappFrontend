@@ -16,10 +16,14 @@ function App() {
   const data = window.localStorage.getItem("data");
   const userData = JSON.parse(data);
   useEffect(() => {
-    socket.emit("setup", userData);
-    socket.on("connection", () => {
-      console.log("Connected to socket.io");    
-    });
+    if(userData){
+
+      socket.emit("setup", userData);
+      socket.on("connection", () => {
+        console.log("Connected to socket.io");    
+      });
+      
+    }
     // eslint-disable-next-line
   }, []);
   const navigate=useNavigate()
