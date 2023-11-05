@@ -1,7 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { ChatContext } from '../context'
 
 export const Home = () => {
+  const myststechect=useContext(ChatContext)
+  
   return (
-    <div>Home</div>
+    <div>
+      {myststechect.mystate}
+    </div>
   )
 }

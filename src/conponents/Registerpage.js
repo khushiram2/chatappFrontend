@@ -29,13 +29,15 @@ export const Registerpage = () => {
     initialValues: {
       name: "",
       email: "",
-      phone: "",
+      password: "",
     },
     onSubmit: (values, { resetForm }) => {
       axios
         .post(`${Api}/user/register`, { user: values })
         .then((res) => {if(res.status===200){
           window.localStorage.setItem("token",res.data.token)
+          const data=JSON.stringify(res.data.data)
+          window.localStorage.setItem("data",data)
             toast.success(res.data.message,{autoClose:5000})
             navigate("/chat")
         }else{

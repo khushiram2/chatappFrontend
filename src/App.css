@@ -4,6 +4,9 @@
   display: flex;
 
 }
+svg{
+  cursor: pointer;
+}
 button{
   cursor: pointer;
 }
@@ -72,4 +75,111 @@ margin: 5px;
   color: aliceblue;
   background-color: rgb(19, 3, 95);
   margin-left: 150px;
+}
+
+.singleChatBox:hover{
+  background-color: #7fffd4;
+}
+.singleChatBox{
+  background-color: beige;
+  display: flex;
+  padding: 20px;
+  margin-top: 10px;
+  border-radius: 20px;
+}
+.chatsColumn{
+  width: 480px;
+  height: calc(100vh - 160px);
+  background-color: azure;
+  margin: 18px;
+  border: 1px black solid;
+  border-radius: 20px;
+  padding: 20px;
+  overflow-y: scroll;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+
+}
+
+.chatsColumn::-webkit-scrollbar {
+  display: none !important; 
+}
+.messagechatcontainer{
+  overflow-y: scroll;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+.messagechatcontainer::-webkit-scrollbar{
+  display: none !important;
+}
+.messages{
+  width: calc(100vw - 440px);
+  height: calc(100vh - 160px);
+  background-color: rgb(240, 255, 255);
+  margin: 18px;
+  border: 1px black solid;
+  border-radius: 20px;
+  padding: 20px;
+}
+.chatboxinmychat{
+  display:flex;
+  justify-content:space-between;
+  background-color:rgb(200, 290, 255);
+  width:360px;
+   margin:10px;
+  border-radius:10px;
+  padding:10px;
+ 
+}
+.chatboxinmychat:hover{
+  background-color:#54eb78 ;
+}
+
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.message {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 5px;
+  /* max-width: 100%; */
+}
+
+.sent {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+
+
+.message-content {
+  background-color: #f1f0f0;
+  padding: 10px;
+  border-radius: 10px;
+  word-wrap:break-word;
+ max-width: 70%;
+ height: fit-content;
+}
+
+.received .message-content {
+  border-top-left-radius: 0;
+}
+
+.sent .message-content {
+  background-color: #0084ff; 
+  color: white;
+  border-top-right-radius: 0;
+  word-wrap:break-word;
 }
