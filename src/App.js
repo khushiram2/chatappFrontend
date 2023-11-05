@@ -20,6 +20,7 @@ function App() {
     socket.on("connection", () => {
       console.log("Connected to socket.io");    
     });
+    // eslint-disable-next-line
   }, []);
   const navigate=useNavigate()
 const checkJWTExpiration=async()=>{
@@ -32,6 +33,7 @@ const checkJWTExpiration=async()=>{
 
 useEffect(()=>{
   checkJWTExpiration()
+  // eslint-disable-next-line
 },[])
   
   return (

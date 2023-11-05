@@ -37,6 +37,7 @@ export const Chat = () => {
       return () => {
         socket.off("message recieved");
       };
+      // eslint-disable-next-line
     }, []);
     
   return (

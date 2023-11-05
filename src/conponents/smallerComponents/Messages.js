@@ -21,25 +21,25 @@ export const Messages = ({ socket,messages,setMessages }) => {
 
 
   
-  const getAllMessages = async () => {
-    if (mySelectedChatstateFromSearch.chatName) {
-      const res = await axiosInstance.get(
-        `${Api}/message/all/${mySelectedChatstateFromSearch._id}`
-        );
-        if (res.status === 200) {
-          setMessages(res.data);
-          socket.emit("join-chat", mySelectedChatstateFromSearch._id)
+  
+  
+  useEffect(() => {
+    const getAllMessages = async () => {
+      if (mySelectedChatstateFromSearch.chatName) {
+        const res = await axiosInstance.get(
+          `${Api}/message/all/${mySelectedChatstateFromSearch._id}`
+          );
+          if (res.status === 200) {
+            setMessages(res.data);
+            socket.emit("join-chat", mySelectedChatstateFromSearch._id)
+          } else {
+            console.log(" i can't do it ");
+          }
         } else {
-          console.log(" i can't do it ");
+          console.log("no chat id is there. what you want me to do?");
         }
-      } else {
-        console.log("no chat id is there. what you want me to do?");
-      }
-    };
-    
-    
-    useEffect(() => {
-      getAllMessages();
+      };
+    getAllMessages();
     }, [mySelectedChatstateFromSearch]);
 
 
