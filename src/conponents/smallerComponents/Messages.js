@@ -42,7 +42,7 @@ setMessages(newmessage)
         }
       };
     getAllMessages();
-    }, [mySelectedChatstateFromSearch]);
+    }, [updateMessage,mySelectedChatstateFromSearch,socket]);
 
 
     // useEffect (  () => {
