@@ -26,7 +26,7 @@ const token=window.localStorage.getItem("token")
         
     }
     useEffect(()=>{
-        if(allChats.length===0&&token){
+        if(allChats.length===0&&token!==null){
             getAllChats()
         }
     },[allChats.length,token])
