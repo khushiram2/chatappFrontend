@@ -62,6 +62,9 @@ setMessages([...arr,msg])
     if(recievedMessage!==null){
       updateMessage(messages,recievedMessage)
     }
+    return ()=>{
+      setReceivedMessage(null)
+    }
   },[recievedMessage])
 
   const removechat = () => {
