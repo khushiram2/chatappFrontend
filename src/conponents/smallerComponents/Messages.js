@@ -58,7 +58,6 @@ export const Messages = ({ socket, messages, setMessages }) => {
 
   useEffect(()=>{
     if(recievedMessage!==null){
-
       setMessages([...messages,recievedMessage])
     }
   },[recievedMessage])
