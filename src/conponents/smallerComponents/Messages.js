@@ -65,7 +65,7 @@ setMessages([...arr,msg])
     return ()=>{
       setReceivedMessage(null)
     }
-  },[recievedMessage])
+  },[updateMessage,messages, recievedMessage])
 
   const removechat = () => {
     socket.emit("user-disconnected", mySelectedChatstateFromSearch._id)
