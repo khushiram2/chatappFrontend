@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ChatContext } from "../../context";
 import { Box } from "@mui/material";
 import { getSecondUserInChat, getSecondUserInChat2 } from "./function";
@@ -8,61 +8,66 @@ import { GroupChatDialog } from "./GroupChatDialog";
 import { axiosInstance } from "../AxiosInstance";
 import { Api } from "../GlobalApi";
 import { ScrollableMessages } from "./ScrollableMessages";
-export const Messages = ({ socket,messages,setMessages }) => {
+export const Messages = ({ socket, messages, setMessages }) => {
+  const [recievedMessage,setReceivedMessage]=useState(null)
   const [showProfile, setShowProfile] = useState(false);
   const data = window.localStorage.getItem("data");
   const userData = JSON.parse(data);
   const appChatContext = useContext(ChatContext);
   const mySelectedChatstateFromSearch =
-  appChatContext.mySelectedChatstateFromSearch;
+    appChatContext.mySelectedChatstateFromSearch;
   const setMySelectedChatStateFromSearch =
-  appChatContext.setMySelectedChatStateFromSearch;
+    appChatContext.setMySelectedChatStateFromSearch;
+  const { notification, setNotification, getAllChats } = appChatContext;
 
-  const updateMessage=useCallback((newmessage)=>{
-setMessages(newmessage)
-  },[setMessages])
 
-  
-  
-  
+
+
+
   useEffect(() => {
     const getAllMessages = async () => {
       if (mySelectedChatstateFromSearch.chatName) {
         const res = await axiosInstance.get(
           `${Api}/message/all/${mySelectedChatstateFromSearch._id}`
-          );
-          if (res.status === 200) {
-            updateMessage(res.data);
-            socket.emit("join-chat", mySelectedChatstateFromSearch._id)
-          } else {
-            console.log(" i can't do it ");
-          }
+        );
+        if (res.status === 200) {
+          setMessages(res.data);
+          socket.emit("join-chat", mySelectedChatstateFromSearch._id)
         } else {
-          console.log("no chat id is there. what you want me to do?");
+          console.log(" can't do it, try again  ");
         }
-      };
+      } else {
+        console.log("A for effort but we don't have necessary resources");
+      }
+    };
     getAllMessages();
-    }, [updateMessage,mySelectedChatstateFromSearch,socket]);
+  }, [mySelectedChatstateFromSearch, socket]);
 
 
-    // useEffect (  () => {
-    //   socket.on("message recieved",async (newMessage) => {
-    //     if ( !mySelectedChatstateFromSearch._id ||mySelectedChatstateFromSearch._id !== newMessage.chat._id) {
-    //       const {data}= await axiosInstance.post(`${Api}/notification/post`,{chatId:newMessage.chat._id,content:newMessage})
-    //       console.log(data)
-    //       if(!notification.includes(newMessage)){
-    //         setNotification([newMessage,...notification])
-    //         console.log(newMessage)
-    //         await getAllChats()
-    //       }
-    //     } else {
-    //       setMessages([...messages, newMessage])
-    //     }
-    //   })
-    // })
+  useEffect(() => {
+    socket.on("message-recieved", async (newMessage) => {
+      if (mySelectedChatstateFromSearch._id !== undefined && mySelectedChatstateFromSearch._id !== newMessage.chat._id) {
+        setNotification([newMessage, ...notification])
+        console.log(newMessage)
+        await getAllChats()
+      } else {
+      setReceivedMessage(newMessage)
+      }
+    })
+  }, [socket])
 
-    
-  
+  useEffect(()=>{
+    if(recievedMessage!==null){
+
+      setMessages([...messages,recievedMessage])
+    }
+  },[recievedMessage])
+
+  const removechat = () => {
+    socket.emit("user-disconnected", mySelectedChatstateFromSearch._id)
+    setMySelectedChatStateFromSearch("")
+  }
+
   if (mySelectedChatstateFromSearch.chatName) {
     const otherUser = getSecondUserInChat2(
       mySelectedChatstateFromSearch.users,
@@ -72,7 +77,7 @@ setMessages(newmessage)
       <div className="messages">
         <header style={{ margin: "3px" }}>
           <Box display={"flex"} alignItems={"center"} gap={"20px"}>
-            <ArrowBack onClick={() => setMySelectedChatStateFromSearch("")} />
+            <ArrowBack onClick={removechat} />
             <Box sx={{ fontSize: "25px" }}>
               {mySelectedChatstateFromSearch.isGroupChat
                 ? mySelectedChatstateFromSearch.chatName
@@ -102,7 +107,7 @@ setMessages(newmessage)
         </header>
         <Box
         >
-         <ScrollableMessages socket={socket}  setMessages={setMessages} messages={messages}/> 
+          <ScrollableMessages socket={socket} setMessages={setMessages} messages={messages} />
         </Box>
       </div>
     );

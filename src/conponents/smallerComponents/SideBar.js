@@ -21,9 +21,10 @@ export const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
         } else {
             try {
                 const { data } = await axiosInstance.get(`${Api}/user/getallusers?name=${searchUser}`)
-                if(data){
+                if(Array.isArray( data)){
                     setResult(data)
-
+                }else{
+                    setResult([])
                 }
                 setSearchUser("")
             } catch (error) {

@@ -88,7 +88,7 @@ margin: 5px;
   border-radius: 20px;
 }
 .chatsColumn{
-  width: 480px;
+  
   height: calc(100vh - 160px);
   background-color: azure;
   margin: 18px;
@@ -113,7 +113,7 @@ margin: 5px;
   display: none !important;
 }
 .messages{
-  width: calc(100vw - 440px);
+
   height: calc(100vh - 160px);
   background-color: rgb(240, 255, 255);
   margin: 18px;
@@ -125,7 +125,6 @@ margin: 5px;
   display:flex;
   justify-content:space-between;
   background-color:rgb(200, 290, 255);
-  width:360px;
    margin:10px;
   border-radius:10px;
   padding:10px;
@@ -182,4 +181,10 @@ margin: 5px;
   color: white;
   border-top-right-radius: 0;
   word-wrap:break-word;
+}
+
+
+.container-chat{
+  display: grid;
+  grid-template-columns: 1fr 3fr;
 }

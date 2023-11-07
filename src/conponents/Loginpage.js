@@ -4,8 +4,13 @@ import { Api } from "./GlobalApi";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
+import { ChatContext } from "../context";
+import { useContext } from "react";
+import { socket } from "./Socket.js/socket";
+import { setTokenInAxiosInstance } from "./AxiosInstance";
 
 export const Loginpage = () => {
+    const {getAllChats}=useContext(ChatContext)
     const validationSchema = Yup.object().shape({
         email: Yup.string().email("please enter a vaild email").required("email is required"),
         password: Yup.string().required("Password is required")
@@ -20,13 +25,19 @@ export const Loginpage = () => {
         },
         onSubmit: (values, { resetForm }) => {
             axios.post(`${Api}/user/login`, { user: values })
-                .then((res) => {
+                .then(async (res) => {
                     if (res.status === 200) {
                         toast.success(res.data.message, { autoClose: 5000 });
                         window.localStorage.setItem("token", res.data.token);
                         const data=JSON.stringify(res.data.data)
                         window.localStorage.setItem("data", data)
+                        await setTokenInAxiosInstance(res.data.token)
+                        await getAllChats()
+                        socket.emit("setup", res.data.data);
+                        socket.on("connection", () => {
+                          console.log("Connected to socket.io"); })   
                         navigate("/chat");
+                        
                     } else {
                         toast.error(res.data.message, { autoClose: 5000 });
                         navigate("/login");

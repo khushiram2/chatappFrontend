@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { ProfileView } from './ProfileView'
 import { SideBar } from './SideBar'
 import { ChatContext } from '../../context'
+import { socket } from '../Socket.js/socket'
 
 export const Header = () => {
     const navigate=useNavigate()
@@ -32,6 +33,7 @@ export const Header = () => {
   const logout=()=>{
     setAnchorEl(null);
     window.localStorage.clear()
+    socket.emit('logout');
     setMySelectedChatStateFromSearch({})
     setAllChats([])
     navigate("/login")

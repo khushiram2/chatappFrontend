@@ -114,9 +114,9 @@ export const ScrollableMessages = ({messages,setMessages,socket}) => {
         position: "relative",
       }}>
                   <Box className="messagechatcontainer" ref={messageContainerRef} sx={{ height: "calc(100% - 50px)", width: "100%" }}>
-            {messages.map((message, index) => {
+            {messages.length!==0&&messages.map((message, index) => {
               return (
-                <div key={index} className={`message ${message.sender._id === userData.id ? "sent" : "received"}`}
+                <div key={index} className={`message ${message?.sender._id === userData.id ? "sent" : "received"}`}
                 >
                   {message.sender._id !== userData.id && (
                     <div >

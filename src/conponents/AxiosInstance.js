@@ -1,17 +1,23 @@
 import axios from "axios";
 
-const Token = window.localStorage.getItem("token");
-
+const token=window.localStorage.getItem("token")
 export const axiosInstance = axios.create();
 
-axiosInstance.interceptors.request.use(
-  (config) => {
-    if (Token) {
-      config.headers.Authorization = Token;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
+export const setTokenInAxiosInstance=(Token)=>{
+      
+    axiosInstance.interceptors.request.use(
+      (config) => {
+        if (Token ) {
+          config.headers.Authorization = Token ||token;
+          return config;
+        }else{
+            Promise.reject("token is missing")
+        }
+      },
+      (error) => {
+        return Promise.reject(error);
+      }
+    );
+
+
+}
