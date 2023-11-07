@@ -41,7 +41,7 @@ export const Messages = ({ socket, messages, setMessages }) => {
       }
     };
     getAllMessages();
-  }, [mySelectedChatstateFromSearch, socket]);
+  }, [setMessages,mySelectedChatstateFromSearch, socket]);
 
 
   useEffect(() => {
@@ -54,13 +54,13 @@ export const Messages = ({ socket, messages, setMessages }) => {
       setReceivedMessage(newMessage)
       }
     })
-  }, [socket])
+  }, [notification,getAllChats,mySelectedChatstateFromSearch._id,setNotification,socket])
 
   useEffect(()=>{
     if(recievedMessage!==null){
       setMessages([...messages,recievedMessage])
     }
-  },[recievedMessage])
+  },[messages,setMessages,recievedMessage])
 
   const removechat = () => {
     socket.emit("user-disconnected", mySelectedChatstateFromSearch._id)
