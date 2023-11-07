@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { ChatContext } from "../../context";
 import { Box } from "@mui/material";
 import { getSecondUserInChat, getSecondUserInChat2 } from "./function";
@@ -21,7 +21,9 @@ export const Messages = ({ socket, messages, setMessages }) => {
   const { notification, setNotification, getAllChats } = appChatContext;
 
 
-
+const updateMessage=useCallback((arr,msg)=>{
+setMessages([...arr,msg])
+},[setMessages])
 
 
   useEffect(() => {
@@ -58,9 +60,9 @@ export const Messages = ({ socket, messages, setMessages }) => {
 
   useEffect(()=>{
     if(recievedMessage!==null){
-      setMessages([...messages,recievedMessage])
+      updateMessage(messages,recievedMessage)
     }
-  },[messages,setMessages,recievedMessage])
+  },[recievedMessage])
 
   const removechat = () => {
     socket.emit("user-disconnected", mySelectedChatstateFromSearch._id)
